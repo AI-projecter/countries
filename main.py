@@ -20,7 +20,7 @@ CF_MODEL = os.getenv("CLOUDFLARE_MODEL", "@cf/black-forest-labs/flux-1-schnell")
 
 mongo = AsyncIOMotorClient(MONGODB_URI) if MONGODB_URI else None
 db = mongo["world_ai_size_map"] if mongo else None
-maps = db["maps"] if db else None
+maps = db["maps"] if db is not None else None
 
 class State(BaseModel):
     objects: list[dict[str, Any]] = Field(default_factory=list)

@@ -47,7 +47,7 @@ async def health():
 @app.get("/api/state")
 async def get_state(request: Request):
     sid = await get_session(request)
-    state = await maps.find_one({"session": sid}, {"_id": 0}) if maps else None
+    state = await maps.find_one({"session": sid}, {"_id": 0}) if maps is not None else None
     response = JSONResponse(state or State().model_dump())
     if not request.cookies.get("world_map_session"):
         response.set_cookie("world_map_session", sid, max_age=31536000, httponly=True, samesite="lax")

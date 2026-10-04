@@ -56,7 +56,7 @@ async def get_state(request: Request):
 @app.put("/api/state")
 async def put_state(request: Request, state: State):
     sid = await get_session(request)
-    if not maps:
+    if maps is None:
         raise HTTPException(500, "MONGODB_URI is not configured")
     doc = state.model_dump()
     doc.update({"session": sid, "updated_at": datetime.now(timezone.utc).isoformat()})

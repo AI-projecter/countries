@@ -70,7 +70,9 @@ async def put_state(request: Request, state: State):
 async def search(q: str):
     if not q.strip(): return []
     params = {"q": q, "format": "jsonv2", "limit": 8, "polygon_geojson": 1, "addressdetails": 1, "namedetails": 1}
-    headers = {"User-Agent": "WorldAISizeMap/1.0 (contact: admin@example.com)"}
+    headers = {
+    "User-Agent": "WorldAISizeMap/1.0 (contact: ai.project.ariel@gmail.com)"
+    }
     async with httpx.AsyncClient(timeout=20) as client:
         r = await client.get("https://nominatim.openstreetmap.org/search", params=params, headers=headers)
     if r.status_code != 200: raise HTTPException(r.status_code, "Nominatim search failed")
